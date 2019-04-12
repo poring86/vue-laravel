@@ -22,5 +22,11 @@
         "sass-loader": "^7.1.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "admin-lte": "^3.0.0-alpha.2",
+        "save": "^2.3.3",
+        "vue-router": "^3.0.3",
+        "vuex": "^3.1.0"
     }
 }

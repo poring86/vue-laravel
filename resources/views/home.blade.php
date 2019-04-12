@@ -24,5 +24,7 @@
 <example-component></example-component>
 <task-list></task-list>
 <task-form></task-form>
+<div id="app">
+</div>
 
 @endsection

@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
 
-Auth::routes();
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

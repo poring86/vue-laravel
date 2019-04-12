@@ -1,4 +1,8 @@
 
+import Vue from 'vue';
+import Routes from './routes';
+import App from './components/App';
+import Store from './store';
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -7,8 +11,10 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 window.Event = new Vue();
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -31,6 +37,11 @@ Vue.component('task-list', require('./components/TaskList.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-new Vue({
-    el: '#app'
+const app = new Vue({
+    el: '#app',
+    router: Routes,
+    store: Store,
+    render: h => h(App)
 });
+
+export default app;

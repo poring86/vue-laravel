@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-8 mt-4">
         <div class="card">
-            <div class="card-header">Task Form</div>
+            <div class="card-header">Edit {{ id }}</div>
 
             <div class="card-body">
                 <form action="./api/task" method="POST" @submit.prevent="addTask()">
@@ -20,24 +20,8 @@
 <script>
     export default {
         data(){
-            return {
-                title: ''
-            }
-        },
-        mounted() {
-            console.log('Component mounted.')
-        },
-        methods:{
-            addTask(){
-                this.$store.state.tasks.push({title: this.title})
-                axios.post('./api/task', {title: this.title})
-                .then(response => {
-                    // Event.$emit('taskCreated', {title: this.title})
-                    this.title = ''
-                })
-                .catch(error => console.log(error))
-                
-                console.log('Adding Task');
+            return{
+                id: this.$route.params.id
             }
         }
     }
