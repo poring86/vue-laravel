@@ -36,8 +36,9 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-       Task::create($request->all());
-       echo json_encode($request->all());
+        echo json_encode($request->all());
+        Task::create($request->all());
+       
     }
 
     /**
@@ -87,6 +88,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
         var_dump($id);
-        Task::destroy($id);
+        echo Task::where('uuid', $id)->delete();
     }
 }

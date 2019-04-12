@@ -37,9 +37,9 @@
                 this.tasks = response.data
             });
 
-            Event.$on('taskCreated', (title) => {
-                this.tasks.push(title)
-            });
+            // Event.$on('taskCreated', (title) => {
+            //     this.tasks.push(title)
+            // });
             
             console.log('get: ', this.tasks)
         },
@@ -48,8 +48,8 @@
                 console.log(this.$store.state.tasks);
                 let arr = this.$store.state.tasks;
                 arr = arr.filter(function(item) { 
-                    console.log(item.id +' - '+ task.id);
-                    return item.id !== task.id
+                    console.log(item.id +' - '+ task.uuid);
+                    return item.uuid !== task.uuid
                 })
 
                 this.$store.state.tasks = arr;
@@ -57,7 +57,7 @@
                 this.tasks = this.$store.state.tasks
 
                 console.log(this.$store.state.tasks);
-                axios.delete('./api/task/'+task.id)
+                axios.delete('./api/task/'+task.uuid)
                 .then(response => {
                 //    axios.get('./api/task')
                 //     .then(response => this.tasks = response.data);

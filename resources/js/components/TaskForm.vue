@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import uuid from 'uuid'
     export default {
         data(){
             return {
@@ -29,15 +30,26 @@
         },
         methods:{
             addTask(){
-                this.$store.state.tasks.push({title: this.title})
-                axios.post('./api/task', {title: this.title})
+                let arr = this.$store.state.tasks
+                console.log(uuid());
+
+                const id = uuid()
+                // let last = this.$store.state.tasks.length - 1;
+                // console.log(last);
+                // let last_id = this.$store.state.tasks[last].id
+                // let last_id_increment = last_id + 1;
+                // console.log('ultimo:', this.$store.state.tasks[last]);
+                this.$store.state.tasks.push({title: this.title, uuid: id})
+
+                console.log({title: this.title, uuid: uuid})
+                axios.post('./api/task', {title: this.title, uuid: id})
                 .then(response => {
                     // Event.$emit('taskCreated', {title: this.title})
                     this.title = ''
                 })
                 .catch(error => console.log(error))
                 
-                console.log('Adding Task');
+                console.log(this.$store.state.tasks);
             }
         }
     }
