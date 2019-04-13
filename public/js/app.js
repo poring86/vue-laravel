@@ -1918,7 +1918,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
   data: function data() {
     return {
       tasks: []
@@ -2005,11 +2004,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      id: this.$route.params.id
+      title: this.$route.params.title,
+      uuid: this.$route.params.uuid
     };
+  },
+  methods: {
+    updateTask: function updateTask() {
+      var _this = this;
+
+      console.log('Updating');
+      axios.put('./api/task/' + this.uuid, {
+        title: this.title,
+        uuid: this.uuid,
+        method: 'PUT'
+      }).then(function (response) {
+        // Event.$emit('taskCreated', {title: this.title})
+        _this.title = '';
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
   }
 });
 
@@ -37784,12 +37802,13 @@ var render = function() {
                     _c(
                       "router-link",
                       {
+                        staticClass: "btn btn-info",
                         attrs: {
-                          to: { name: "Edit", params: { id: task.id } },
+                          to: { name: "Edit", params: task },
                           tag: "button"
                         }
                       },
-                      [_vm._v("foo")]
+                      [_vm._v("Edit")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -37866,18 +37885,18 @@ var render = function() {
   return _c("div", { staticClass: "col-md-8 mt-4" }, [
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-header" }, [
-        _vm._v("Edit " + _vm._s(_vm.id))
+        _vm._v("Edit " + _vm._s(_vm.uuid))
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c(
           "form",
           {
-            attrs: { action: "./api/task", method: "POST" },
+            attrs: { method: "PUT" },
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.addTask()
+                return _vm.updateTask()
               }
             }
           },
@@ -37910,6 +37929,10 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c("input", {
+              attrs: { type: "hidden", name: "_method", value: "PUT" }
+            }),
+            _vm._v(" "),
             _vm._m(0)
           ]
         )
@@ -37925,7 +37948,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group" }, [
       _c("input", {
         staticClass: "btn btn-info",
-        attrs: { type: "submit", value: "Add Task" }
+        attrs: { type: "submit", value: "Edit task" }
       })
     ])
   }

@@ -1,15 +1,16 @@
 <template>
     <div class="col-md-8 mt-4">
         <div class="card">
-            <div class="card-header">Edit {{ id }}</div>
+            <div class="card-header">Edit {{ uuid }}</div>
 
             <div class="card-body">
-                <form action="./api/task" method="POST" @submit.prevent="addTask()">
+                <form method="PUT" @submit.prevent="updateTask()">
                     <div class="form-group">
                         <input type="text" name="title" v-model="title" placeholder="Task title" class="form-control">
                     </div>
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
-                        <input type="submit" value="Add Task" class="btn btn-info">
+                        <input type="submit" value="Edit task" class="btn btn-info">
                     </div>
                 </form>
             </div>
@@ -21,7 +22,19 @@
     export default {
         data(){
             return{
-                id: this.$route.params.id
+                title:this.$route.params.title,
+                uuid: this.$route.params.uuid
+            }
+        },
+        methods: {
+            updateTask: function(){
+                console.log('Updating')
+                axios.put('./api/task/'+this.uuid, {title: this.title, uuid: this.uuid, method:'PUT'})
+                .then(response => {
+                    // Event.$emit('taskCreated', {title: this.title})
+                    this.title = ''
+                })
+                .catch(error => console.log(error))
             }
         }
     }

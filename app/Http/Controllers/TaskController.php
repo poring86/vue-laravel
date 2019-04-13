@@ -75,8 +75,13 @@ class TaskController extends Controller
         //
         $this->validate($request, [
             'title' => 'required',
-
         ]);
+
+        $task = Task::where('uuid', $id);
+
+        $task->title = $request->title;
+
+        $task->save();
     }
 
     /**

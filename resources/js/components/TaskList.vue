@@ -11,7 +11,7 @@
                                 {{ task.title }}
                             </div>
                             <div class="col-md-2">
-                                <router-link :to="{ name: 'Edit', params: { id: task.id }}" tag="button">foo</router-link>
+                                <router-link :to="{ name: 'Edit', params: task}" tag="button" class="btn btn-info">Edit</router-link>
                                 <button type="submit" class="btn btn-danger" @click="deleteTask(task)">Delete</button>
                             </div>
                         </div>
@@ -24,7 +24,6 @@
 
 <script>
     export default {
-        props: ['id'],
         data(){
             return {
                 tasks: []
