@@ -24,7 +24,7 @@
     </div>
 </template>
 
-<style scoped>
+<style>
     .fade-enter  /* .fade-leave-active em versões anteriores a 2.1.8 */ {
         opacity: 0;
     }
@@ -100,17 +100,18 @@
         methods: {
             deleteTask: function(task){
                 console.log(this.$store.state.tasks);
-                // let arr = this.$store.state.tasks;
-                // arr = arr.filter(function(item) { 
-                //     console.log(item.id +' - '+ task.uuid);
-                //     return item.uuid !== task.uuid
-                // })
+                let arr = this.$store.state.tasks;
+                arr = arr.filter(function(item) { 
+                    console.log(item.id +' - '+ task.uuid);
+                    return item.uuid !== task.uuid
+                })
 
-                // this.$store.state.tasks = arr;
+                this.$store.state.tasks = arr;
+                this.tasks = this.$store.state.tasks
 
-                this.tasks.splice(task.uuid, 1)
+                // this.tasks.splice(task.uuid, 1)
 
-                this.$store.state.tasks = this.tasks
+                // this.$store.state.tasks = this.tasks
 
                 console.log(this.$store.state.tasks);
                 axios.delete('/task/'+task.uuid)

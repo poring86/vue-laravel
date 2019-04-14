@@ -4,7 +4,7 @@
             <div class="card-header">Task Form</div>
 
             <div class="card-body">
-                <form action="./api/task" method="POST" @submit.prevent="addTask()">
+                <form action="/task" method="POST" @submit.prevent="addTask()">
                     <div class="form-group">
                         <input type="text" name="title" v-model="title" placeholder="Task title" class="form-control">
                     </div>
@@ -39,7 +39,8 @@
                 // let last_id = this.$store.state.tasks[last].id
                 // let last_id_increment = last_id + 1;
                 // console.log('ultimo:', this.$store.state.tasks[last]);
-                this.$store.state.tasks.push({title: this.title, uuid: id})
+                // this.$store.state.tasks.push({title: this.title, uuid: id})
+                this.$store.state.tasks.splice(0, 0, {title: this.title, uuid: id})
 
                 console.log({title: this.title, uuid: uuid})
                 axios.post('/task', {title: this.title, uuid: id})

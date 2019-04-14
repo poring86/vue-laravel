@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        echo json_encode(Task::all());
+        echo json_encode(Task::orderBy('created_at', 'desc')->get());
     }
 
     /**

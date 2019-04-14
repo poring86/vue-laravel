@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 
 // import
 import Home from './components/pages/Home.vue';
-import About from './components/pages/About.vue';
+import Register from './components/pages/Register.vue';
+import Login from './components/pages/Login.vue';
 import Edit from './components/pages/Edit.vue';
 
 Vue.use(VueRouter);
@@ -17,9 +18,14 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/about',
-            name: 'About',
-            component: About
+            path: '/register',
+            name: 'Register',
+            component: Register
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
         },
         {
             path: '/edit/:uuid',
