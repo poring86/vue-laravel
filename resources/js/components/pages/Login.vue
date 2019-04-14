@@ -40,14 +40,23 @@
                     password : this.password
                 })
                 .then(response => {
-                    // Event.$emit('taskCreated', {title: this.title})
-                    console.log(response)
+                    console.log(response.data.access_token)
                     this.$store.state.access_token = response.data.access_token
                     this.$store.state.refresh_token = response.data.refresh_token
-
-                    this.$emit('login')
-
                     axios.defaults.headers.common['Authorization'] = 'Bearer '+response.data.access_token
+
+                    axios.get('/index')
+                    .then(response => {
+                        // Event.$emit('taskCreated', {title: this.title})
+                        console.log('response:', response)
+                        this.$store.state.user.name = response.data.name
+                        Event.$emit('login')
+                    })
+                    .catch(error => console.log(error))
+                    
+                    
+
+                   
                 })
                 .catch(error => console.log(error))
             },

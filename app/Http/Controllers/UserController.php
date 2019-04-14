@@ -17,4 +17,8 @@ class UserController extends Controller
         User::create($user);
         return response()->json(['success' => true]);
     }
+
+    public function logout(){
+        Auth::logout();
+    }
 }

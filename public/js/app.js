@@ -1794,14 +1794,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      token_access: 'um teste'
+      user_name: ''
     };
   },
   created: function created() {
-    this.token_access = this.$store.state.access_token;
+    var _this = this;
+
+    // this.token_access = this.$store.state.access_token
+    Event.$on('login', function () {
+      console.log(_this.$store.state.user.name);
+      _this.user_name = _this.$store.state.user.name;
+    });
+  },
+  methods: {
+    logout: function logout() {
+      axios.defaults.headers.common['Authorization'] = ''; // axios.get('/logout')
+      // .then(response => {
+      //     // Event.$emit('taskCreated', {title: this.title})
+      //     axios.defaults.headers.common['Authorization'] = ''
+      // })
+      // .catch(error => console.log(error))
+    }
   }
 });
 
@@ -2178,14 +2202,18 @@ __webpack_require__.r(__webpack_exports__);
         username: this.email,
         password: this.password
       }).then(function (response) {
-        // Event.$emit('taskCreated', {title: this.title})
-        console.log(response);
+        console.log(response.data.access_token);
         _this.$store.state.access_token = response.data.access_token;
         _this.$store.state.refresh_token = response.data.refresh_token;
-
-        _this.$emit('login');
-
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+        axios.get('/index').then(function (response) {
+          // Event.$emit('taskCreated', {title: this.title})
+          console.log('response:', response);
+          _this.$store.state.user.name = response.data.name;
+          Event.$emit('login');
+        })["catch"](function (error) {
+          return console.log(error);
+        });
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -38509,7 +38537,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "li",
-                { staticClass: "nav-item" },
+                { staticClass: "nav-item text-right" },
                 [
                   _c(
                     "router-link",
@@ -38521,16 +38549,71 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _c("a", { staticClass: "nav-link" }, [
-                  _vm._v(_vm._s(_vm.token_access))
-                ])
-              ])
+              )
             ])
           ]
-        )
+        ),
+        _vm._v(" "),
+        _vm.user_name
+          ? _c(
+              "div",
+              {
+                staticClass: "collapse navbar-collapse",
+                attrs: { id: "navbarSupportedContent" }
+              },
+              [
+                _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+                  _c("li", { staticClass: "nav-item dropdown" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link dropdown-toggle",
+                        attrs: {
+                          id: "navbarDropdownMenuLink",
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.user_name))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu dropdown-menu-right",
+                        attrs: { "aria-labelledby": "navbarDropdownMenuLink" }
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "#" }
+                          },
+                          [_vm._v("Profile")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                return _vm.logout()
+                              }
+                            }
+                          },
+                          [_vm._v("Logout")]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          : _vm._e()
       ]
     ),
     _vm._v(" "),
@@ -55715,7 +55798,8 @@ var Store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     tasks: [],
     access_token: '',
-    refresh_token: ''
+    refresh_token: '',
+    user: []
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (Store);

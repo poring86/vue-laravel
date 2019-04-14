@@ -9,22 +9,30 @@
                     <li class="nav-item">
                         <router-link tag="a" to="/register" class="nav-link" exact>Register</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item text-right">
                         <router-link tag="a" to="/login" class="nav-link" exact>Login</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">{{ token_access }}</a>
                     </li>
                 </ul>
             </div>
-            </nav>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="user_name">
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user_name }}</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#" @click="logout()">Logout</a>
+                    </div>
+                </li>
+                </ul>
+            </div>
+        </nav>
         <div>
-        <transition
-            name="fade"
-            mode="out-in"
-        >
-            <router-view></router-view>
-        </transition>
+            <transition
+                name="fade"
+                mode="out-in"
+            >
+                <router-view></router-view>
+            </transition>
         </div>
     </div>
 </template>
@@ -33,12 +41,27 @@
     export default {
         data(){
             return {
-                token_access: 'um teste'
+                user_name: ''
             }
         },
         created() {
-            this.token_access = this.$store.state.access_token
+            // this.token_access = this.$store.state.access_token
+            Event.$on('login', () => {
+                console.log(this.$store.state.user.name);
+                this.user_name = this.$store.state.user.name
+            });
 
         },
+        methods:{
+            logout(){
+                axios.defaults.headers.common['Authorization'] = '';
+                // axios.get('/logout')
+                // .then(response => {
+                //     // Event.$emit('taskCreated', {title: this.title})
+                //     axios.defaults.headers.common['Authorization'] = ''
+                // })
+                // .catch(error => console.log(error))
+            }
+        }
     }
 </script>
