@@ -22,7 +22,7 @@ const router = new VueRouter({
             component: About
         },
         {
-            path: '/edit/:id',
+            path: '/edit/:uuid',
             name: 'Edit',
             component: Edit
         },

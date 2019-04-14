@@ -8,7 +8,6 @@
                     <div class="form-group">
                         <input type="text" name="title" v-model="title" placeholder="Task title" class="form-control">
                     </div>
-                    <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
                         <input type="submit" value="Edit task" class="btn btn-info">
                     </div>
@@ -29,7 +28,7 @@
         methods: {
             updateTask: function(){
                 console.log('Updating')
-                axios.put('./api/task/'+this.uuid, {title: this.title, uuid: this.uuid, method:'PUT'})
+                axios.put('/task/'+this.uuid, {title: this.title, uuid: this.uuid, method:'PUT'})
                 .then(response => {
                     // Event.$emit('taskCreated', {title: this.title})
                     this.title = ''

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Task;
+use DB;
 
 class TaskController extends Controller
 {
@@ -77,11 +78,11 @@ class TaskController extends Controller
             'title' => 'required',
         ]);
 
-        $task = Task::where('uuid', $id);
-
+        $task = Task::where('uuid',  $id)->firstOrFail();
         $task->title = $request->title;
-
         $task->save();
+
+        echo json_encode($task);
     }
 
     /**

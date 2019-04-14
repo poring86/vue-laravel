@@ -42,7 +42,7 @@
                 this.$store.state.tasks.push({title: this.title, uuid: id})
 
                 console.log({title: this.title, uuid: uuid})
-                axios.post('./api/task', {title: this.title, uuid: id})
+                axios.post('/task', {title: this.title, uuid: id})
                 .then(response => {
                     // Event.$emit('taskCreated', {title: this.title})
                     this.title = ''
