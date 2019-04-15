@@ -6,7 +6,7 @@
             <div class="card-body">
                 <ul class="list-group">
                     <transition-group name="slide">
-                        <li v-for="task in tasks" class="list-group-item" :key="task.uuid">
+                        <li v-for="task in tasks" class="list-group-item" :key="task.id">
                             <div class="row">
                                 <div class="col-md-10">
                                     {{ task.title }}
@@ -102,8 +102,8 @@
                 console.log(this.$store.state.tasks);
                 let arr = this.$store.state.tasks;
                 arr = arr.filter(function(item) { 
-                    console.log(item.id +' - '+ task.uuid);
-                    return item.uuid !== task.uuid
+                    console.log(item.id +' - '+ task.id);
+                    return item.id !== task.id
                 })
 
                 this.$store.state.tasks = arr;
@@ -114,7 +114,7 @@
                 // this.$store.state.tasks = this.tasks
 
                 console.log(this.$store.state.tasks);
-                axios.delete('/task/'+task.uuid)
+                axios.delete('/task/'+task.id)
                 .then(response => {
                 //    axios.get('./api/task')
                 //     .then(response => this.tasks = response.data);

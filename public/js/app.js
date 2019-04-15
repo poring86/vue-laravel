@@ -2077,15 +2077,12 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$store.state.tasks.splice(0, 0, {
         title: this.title,
-        uuid: id
-      });
-      console.log({
-        title: this.title,
-        uuid: uuid__WEBPACK_IMPORTED_MODULE_0___default.a
-      });
+        id: id
+      }); // console.log({title: this.title, id: uuid})
+
       axios.post('/task', {
         title: this.title,
-        uuid: id
+        id: id
       }).then(function (response) {
         // Event.$emit('taskCreated', {title: this.title})
         _this.title = '';
@@ -2210,15 +2207,15 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.$store.state.tasks);
       var arr = this.$store.state.tasks;
       arr = arr.filter(function (item) {
-        console.log(item.id + ' - ' + task.uuid);
-        return item.uuid !== task.uuid;
+        console.log(item.id + ' - ' + task.id);
+        return item.id !== task.id;
       });
       this.$store.state.tasks = arr;
       this.tasks = this.$store.state.tasks; // this.tasks.splice(task.uuid, 1)
       // this.$store.state.tasks = this.tasks
 
       console.log(this.$store.state.tasks);
-      axios["delete"]('/task/' + task.uuid).then(function (response) {//    axios.get('./api/task')
+      axios["delete"]('/task/' + task.id).then(function (response) {//    axios.get('./api/task')
         //     .then(response => this.tasks = response.data);
       })["catch"](function (error) {
         return console.log(error);
@@ -39216,7 +39213,7 @@ var render = function() {
               _vm._l(_vm.tasks, function(task) {
                 return _c(
                   "li",
-                  { key: task.uuid, staticClass: "list-group-item" },
+                  { key: task.id, staticClass: "list-group-item" },
                   [
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-10" }, [

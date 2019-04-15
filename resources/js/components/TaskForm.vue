@@ -40,10 +40,10 @@
                 // let last_id_increment = last_id + 1;
                 // console.log('ultimo:', this.$store.state.tasks[last]);
                 // this.$store.state.tasks.push({title: this.title, uuid: id})
-                this.$store.state.tasks.splice(0, 0, {title: this.title, uuid: id})
+                this.$store.state.tasks.splice(0, 0, {title: this.title, id: id})
 
-                console.log({title: this.title, uuid: uuid})
-                axios.post('/task', {title: this.title, uuid: id})
+                // console.log({title: this.title, id: uuid})
+                axios.post('/task', {title: this.title, id: id})
                 .then(response => {
                     // Event.$emit('taskCreated', {title: this.title})
                     this.title = ''

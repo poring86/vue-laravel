@@ -78,7 +78,7 @@ class TaskController extends Controller
             'title' => 'required',
         ]);
 
-        $task = Task::where('uuid',  $id)->firstOrFail();
+        $task = Task::where('id',  $id)->firstOrFail();
         $task->title = $request->title;
         $task->save();
 
@@ -94,6 +94,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
         var_dump($id);
-        echo Task::where('uuid', $id)->delete();
+        echo Task::where('id', $id)->delete();
     }
 }

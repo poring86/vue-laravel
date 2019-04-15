@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use Illuminate\Http\Request;
+
+use App\Category;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        echo json_encode(Category::orderBy('created_at', 'desc')->get());
     }
 
     /**
@@ -35,16 +37,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo json_encode($request->all());
+        Category::create($request->all());
+       
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
         //
     }
@@ -52,10 +56,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
         //
     }
@@ -64,22 +68,32 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'title' => 'required',
+        ]);
+
+        $Category = Category::where('id',  $id)->firstOrFail();
+        $Category->title = $request->title;
+        $Category->save();
+
+        echo json_encode($Category);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        var_dump($id);
+        echo Category::where('id', $id)->delete();
     }
 }
