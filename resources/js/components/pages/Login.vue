@@ -49,7 +49,7 @@
                     .then(response => {
                         // Event.$emit('taskCreated', {title: this.title})
                         console.log('response:', response)
-                        this.$store.state.user.name = response.data.name
+                        this.$store.state.user_login = response.data
                         Event.$emit('login')
                     })
                     .catch(error => console.log(error))

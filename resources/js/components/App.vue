@@ -12,6 +12,9 @@
                     <li class="nav-item text-right">
                         <router-link tag="a" to="/login" class="nav-link" exact>Login</router-link>
                     </li>
+                    <li class="nav-item text-right">
+                        <router-link tag="a" to="/categories" class="nav-link" exact>Categories</router-link>
+                    </li>
                 </ul>
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent" v-if="user_name">
@@ -19,7 +22,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user_name }}</a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <router-link tag="a" to="/profile" class="dropdown-item" exact>Profile</router-link>
                         <a class="dropdown-item" href="#" @click="logout()">Logout</a>
                     </div>
                 </li>
@@ -47,8 +50,8 @@
         created() {
             // this.token_access = this.$store.state.access_token
             Event.$on('login', () => {
-                console.log(this.$store.state.user.name);
-                this.user_name = this.$store.state.user.name
+                console.log('usuario:', this.$store.state.user_login);
+                this.user_name = this.$store.state.user_login.name
             });
 
         },

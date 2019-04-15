@@ -8,7 +8,7 @@ const Store = new Vuex.Store({
         tasks: [],
         access_token: '',
         refresh_token: '',
-        user: []
+        user_login: []
     }
 })
 

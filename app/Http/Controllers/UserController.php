@@ -9,7 +9,7 @@ use Auth;
 class UserController extends Controller
 {
     public function index(){
-        return response()->json(['name' => Auth::user()->name]);
+        return response()->json(Auth::user());
     }
     public function register(Request $request){
         $user = $request->all();
